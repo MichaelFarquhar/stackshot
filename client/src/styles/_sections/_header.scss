@@ -1,0 +1,18 @@
+// Top-level header container
+header {
+    background: $orange;
+    padding: 1rem;
+    @include shadow(2);
+}
+
+// Main header div
+.header {
+    @include flex(center, space-between);
+    a img {
+        transition: 150ms;
+        filter: invert(1);
+        &:hover {
+            filter: invert(0.8);
+        }
+    }
+}

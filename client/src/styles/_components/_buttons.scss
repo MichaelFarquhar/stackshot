@@ -1,0 +1,11 @@
+// Apply class to any element to match button style
+button,
+.btn {
+    padding: 0.5rem;
+    border: none;
+    font-weight: bold;
+    border-radius: $border_radius;
+    &:hover {
+        cursor: pointer;
+    }
+}

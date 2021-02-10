@@ -1,0 +1,25 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html {
+    font-size: $font_base_size;
+}
+body {
+    font-family: $font_base_family;
+    background-color: $bg_color;
+    color: white;
+}
+
+a {
+    text-decoration: none;
+    color: $blue;
+    &:hover {
+        color: $dark_blue;
+    }
+}
+
+ul {
+    list-style-type: none;
+}

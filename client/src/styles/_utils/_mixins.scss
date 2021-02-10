@@ -1,0 +1,90 @@
+/*
+=====================================
+Mixins used to reduce repetitive code
+=====================================
+*/
+
+// Centers an item horizontally and vertically.
+@mixin center() {
+    display: grid;
+    place-items: center;
+}
+
+// Flex helper function, centers everything by default
+@mixin flex($align: center, $justify: center, $direction: row) {
+    display: flex;
+    align-items: $align;
+    justify-content: $justify;
+    flex-direction: $direction;
+}
+
+// Basic box shadow
+@mixin shadow($level: 1) {
+    @if $level <= 1 {
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    } @else if $level == 2 {
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    } @else if $level == 3 {
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    } @else if $level >= 4 {
+        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    }
+}
+
+// Float clearfix
+@mixin clearfix {
+    &:after {
+        content: '';
+        display: table;
+        clear: both;
+    }
+}
+
+// Show/Hide with an animation
+@mixin fade($type) {
+    @if $type == 'hide' {
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 1s, opacity 1s;
+    } @else if $type == 'show' {
+        visibility: visible;
+        opacity: 1;
+        transition: visibility 1s, opacity 1s;
+    }
+}
+
+/*
+=====================================
+Mixins to simplify browser prefixes
+=====================================
+*/
+@mixin input-placeholder {
+    &.placeholder {
+        @content;
+    }
+    &:-moz-placeholder {
+        @content;
+    }
+    &::-moz-placeholder {
+        @content;
+    }
+    &:-ms-input-placeholder {
+        @content;
+    }
+    &::-webkit-input-placeholder {
+        @content;
+    }
+}
+@mixin transform($type) {
+    -webkit-transform: $type;
+    -moz-transform: $type;
+    -ms-transform: $type;
+    -o-transform: $type;
+    transform: $type;
+}
+@mixin animation($name, $timing: 0.5s) {
+    -webkit-animation: $name $timing;
+    -moz-animation: $name $timing;
+    -ms-animation: $name $timing;
+    -o-animation: $name $timing;
+}
