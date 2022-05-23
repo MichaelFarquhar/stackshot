@@ -4,7 +4,7 @@ import { RecoilRoot } from 'recoil';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
-import grey from '@mui/material/colors/grey';
+import blue from '@mui/material/colors/blue';
 
 declare module '@mui/material/styles' {
     interface Theme {
@@ -28,7 +28,7 @@ const theme = createTheme({
     typography: {
         overline: {
             fontWeight: 700,
-            color: grey[500],
+            color: blue[300],
         },
     },
 });

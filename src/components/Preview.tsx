@@ -1,31 +1,34 @@
-import { Box, Card, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { FC } from 'react';
 import SVG from 'react-inlinesvg';
 import { useRecoilValue } from 'recoil';
-import { svgState } from '../App';
+import { svgSizeState, svgSpacingXState, svgSpacingYState, svgState } from '../App';
 
-interface Props {}
-
-export const Preview: FC<Props> = (props) => {
+export const Preview: FC = () => {
     const svgs = useRecoilValue(svgState);
+    const svgSize = useRecoilValue(svgSizeState);
+    const svgSpacingX = useRecoilValue(svgSpacingXState);
+    const svgSpacingY = useRecoilValue(svgSpacingYState);
     const svgDirectory = `${process.env.PUBLIC_URL}/svgs/`;
 
     return (
-        <Card>
+        <>
+            <Typography variant="h5" component="div" gutterBottom>
+                Preview
+            </Typography>
             <Box>
-                <Typography variant="h5" component="div" gutterBottom>
-                    Preview
-                </Typography>
                 {svgs &&
-                    svgs.map((fileName: string) => (
+                    svgs.map((fileName: string, index: number) => (
                         <SVG
                             src={`${svgDirectory}${fileName}.svg`}
-                            width={70}
-                            height={70}
+                            width={svgSize}
+                            height={svgSize}
+                            style={{ margin: `${svgSpacingY} ${svgSpacingX}` }}
                             title={fileName}
+                            key={index}
                         />
                     ))}
             </Box>
-        </Card>
+        </>
     );
 };

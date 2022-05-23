@@ -4,24 +4,47 @@ import './App.css';
 import { FormSection } from './components/FormSection';
 import { Preview } from './components/Preview';
 
+// Side effect for logging out any state value on change
+const logEffect = [
+    ({ onSet, node }: any) => {
+        onSet((item: any) => {
+            console.log(`${node.key}:`, item);
+        });
+    },
+];
+
+// List of svg's currently selected
 export const svgState = atom<string[]>({
     key: 'svgState',
     default: [],
-    effects: [
-        ({ onSet }) => {
-            onSet((svg) => {
-                console.log('svg list:', svg);
-            });
-        },
-    ],
+    effects: logEffect,
+});
+
+// spacing on x-axis between svgs
+export const svgSpacingXState = atom<number>({
+    key: 'svgSpacingXState',
+    default: 5,
+});
+
+// spacing on y-axis between svgs
+export const svgSpacingYState = atom<number>({
+    key: 'svgSpacingYState',
+    default: 0,
+});
+
+// Width and height of svgs
+export const svgSizeState = atom<number>({
+    key: 'svgSizeState',
+    default: 50,
 });
 
 function App() {
     return (
         <div className="App">
-            <Container maxWidth="sm">
+            <Container maxWidth="md">
                 <Stack spacing={5}>
                     <FormSection />
+                    <hr />
                     <Preview />
                 </Stack>
             </Container>
