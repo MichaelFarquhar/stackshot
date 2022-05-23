@@ -2,6 +2,7 @@ import { Autocomplete, TextField } from '@mui/material';
 import { FC } from 'react';
 import { useRecoilState } from 'recoil';
 import { svgState } from '../../App';
+import svgSelectOptions from '../../utils/svgSelectOptions';
 
 // Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
 const selectOptions = [
