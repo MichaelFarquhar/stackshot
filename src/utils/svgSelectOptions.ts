@@ -4,7 +4,6 @@ export default [
     { label: 'Bootstrap', file: 'bootstrap' },
     { label: 'CSS', file: 'css' },
     { label: 'Firebase', file: 'firebase' },
-    { label: 'Gatsby', file: 'gatsby' },
     { label: 'Git', file: 'git' },
     { label: 'GraphQL', file: 'graphql' },
     { label: 'HTML', file: 'html' },

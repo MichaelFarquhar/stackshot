@@ -4,13 +4,6 @@ import { useRecoilState } from 'recoil';
 import { svgState } from '../../App';
 import svgSelectOptions from '../../utils/svgSelectOptions';
 
-// Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
-const selectOptions = [
-    { label: 'React', file: 'react' },
-    { label: 'Javascript', file: 'javascript' },
-    { label: 'CSS', file: 'css' },
-];
-
 interface SelectOption {
     label: string;
     file: string;
@@ -57,7 +50,7 @@ export const StackSelector: FC = () => {
         <Autocomplete
             disablePortal
             id="combo-box-demo"
-            options={selectOptions}
+            options={svgSelectOptions}
             multiple
             onChange={(_, value) => handleChange(value)}
             renderInput={(params) => <TextField {...params} label="Add stack" />}
