@@ -1,7 +1,8 @@
+import { Container, Stack } from '@mui/material';
 import { atom } from 'recoil';
 import './App.css';
+import { FormSection } from './components/FormSection';
 import { Preview } from './components/Preview';
-import { StackSelector } from './components/StackSelector';
 
 export const svgState = atom<string[]>({
     key: 'svgState',
@@ -18,8 +19,12 @@ export const svgState = atom<string[]>({
 function App() {
     return (
         <div className="App">
-            <StackSelector />
-            <Preview />
+            <Container maxWidth="sm">
+                <Stack spacing={5}>
+                    <FormSection />
+                    <Preview />
+                </Stack>
+            </Container>
         </div>
     );
 }
