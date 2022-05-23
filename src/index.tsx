@@ -3,12 +3,43 @@ import ReactDOM from 'react-dom/client';
 import { RecoilRoot } from 'recoil';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
+import grey from '@mui/material/colors/grey';
+
+declare module '@mui/material/styles' {
+    interface Theme {
+        typography: {
+            overline: {
+                fontWeight: number;
+            };
+        };
+    }
+    // allow configuration using `createTheme`
+    interface TypographyOptions {
+        typography?: {
+            overline?: {
+                fontWeight: number;
+            };
+        };
+    }
+}
+
+const theme = createTheme({
+    typography: {
+        overline: {
+            fontWeight: 700,
+            color: grey[500],
+        },
+    },
+});
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
     <React.StrictMode>
         <RecoilRoot>
-            <App />
+            <ThemeProvider theme={theme}>
+                <App />
+            </ThemeProvider>
         </RecoilRoot>
     </React.StrictMode>
 );

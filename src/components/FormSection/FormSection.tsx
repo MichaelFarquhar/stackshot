@@ -8,7 +8,7 @@ interface SectionLabelProps {
 
 const SectionLabel = ({ label }: SectionLabelProps) => {
     return (
-        <Typography variant="overline" display="block">
+        <Typography variant="overline" display="block" gutterBottom>
             {label}
         </Typography>
     );
@@ -16,7 +16,7 @@ const SectionLabel = ({ label }: SectionLabelProps) => {
 
 export const FormSection: FC = () => {
     return (
-        <Grid container spacing={2}>
+        <Grid container spacing={3}>
             <Grid item xs={12}>
                 <SectionLabel label="Select SVG" />
                 <StackSelector />
