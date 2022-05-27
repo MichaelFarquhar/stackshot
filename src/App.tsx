@@ -13,6 +13,24 @@ const logEffect = [
     },
 ];
 
+// Border line size
+export const borderSizeState = atom<number>({
+    key: 'borderSizeState',
+    default: 0,
+});
+
+// Border radius
+export const borderRadiusState = atom<number>({
+    key: 'borderRadiusState',
+    default: 0,
+});
+
+// Border color of imaage
+export const borderColorState = atom<string>({
+    key: 'borderColorState',
+    default: '#aabbcc',
+});
+
 // List of svg's currently selected
 export const svgState = atom<string[]>({
     key: 'svgState',

@@ -9,7 +9,15 @@ import {
 } from '@mui/material';
 import { FC } from 'react';
 import { useRecoilState } from 'recoil';
-import { svgSizeState, svgSpacingXState, svgSpacingYState } from '../../App';
+import {
+    borderColorState,
+    borderRadiusState,
+    borderSizeState,
+    svgSizeState,
+    svgSpacingXState,
+    svgSpacingYState,
+} from '../../App';
+import { ColorPicker } from '../input/ColorPicker';
 import { StackSelector } from './StackSelector';
 
 interface SectionLabelProps {
@@ -28,6 +36,9 @@ export const FormSection: FC = () => {
     const [svgSpacingX, setSvgSpacingX] = useRecoilState(svgSpacingXState);
     const [svgSpacingY, setSvgSpacingY] = useRecoilState(svgSpacingYState);
     const [svgSize, setSvgSize] = useRecoilState(svgSizeState);
+    const [borderColor, setBorderColor] = useRecoilState(borderColorState);
+    const [borderSize, setBorderSize] = useRecoilState(borderSizeState);
+    const [borderRadius, setBorderRadius] = useRecoilState(borderRadiusState);
 
     return (
         <Stack spacing={3}>
@@ -40,7 +51,7 @@ export const FormSection: FC = () => {
                 </Grid>
             </Box>
             <Box>
-                <SectionLabel label="SVG Customization" />
+                <SectionLabel label="SVG Options" />
                 <Grid container spacing={3}>
                     <Grid item xs={4}>
                         <TextField
@@ -78,6 +89,42 @@ export const FormSection: FC = () => {
                             defaultValue={svgSize}
                             onChange={(e) =>
                                 setSvgSize(
+                                    parseInt(e.target.value === '' ? '0' : e.target.value)
+                                )
+                            }
+                        />
+                    </Grid>
+                </Grid>
+            </Box>
+            <Box>
+                <SectionLabel label="Border Options" />
+                <Grid container spacing={3}>
+                    <Grid item xs={4}>
+                        <ColorPicker color={borderColor} onChangeColor={setBorderColor} />
+                    </Grid>
+                    <Grid item xs={4}>
+                        <TextField
+                            name="borderSize"
+                            variant="standard"
+                            type="number"
+                            label="Border Size (px)"
+                            defaultValue={borderSize}
+                            onChange={(e) =>
+                                setBorderSize(
+                                    parseInt(e.target.value === '' ? '0' : e.target.value)
+                                )
+                            }
+                        />
+                    </Grid>
+                    <Grid item xs={4}>
+                        <TextField
+                            name="borderRadius"
+                            variant="standard"
+                            type="number"
+                            label="Border Radius (px)"
+                            defaultValue={borderRadius}
+                            onChange={(e) =>
+                                setBorderRadius(
                                     parseInt(e.target.value === '' ? '0' : e.target.value)
                                 )
                             }

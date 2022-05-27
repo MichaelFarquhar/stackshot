@@ -2,7 +2,15 @@ import { Box, Button, Typography } from '@mui/material';
 import { FC, useRef, useCallback } from 'react';
 import SVG from 'react-inlinesvg';
 import { useRecoilValue } from 'recoil';
-import { svgSizeState, svgSpacingXState, svgSpacingYState, svgState } from '../App';
+import {
+    borderColorState,
+    borderRadiusState,
+    borderSizeState,
+    svgSizeState,
+    svgSpacingXState,
+    svgSpacingYState,
+    svgState,
+} from '../../App';
 import { toSvg } from 'html-to-image';
 
 export const Preview: FC = () => {
@@ -10,6 +18,10 @@ export const Preview: FC = () => {
     const svgSize = useRecoilValue(svgSizeState);
     const svgSpacingX = useRecoilValue(svgSpacingXState);
     const svgSpacingY = useRecoilValue(svgSpacingYState);
+    const boxBorderColor = useRecoilValue(borderColorState);
+    const boxBorderSize = useRecoilValue(borderSizeState);
+    const boxBorderRadius = useRecoilValue(borderRadiusState);
+
     const svgDirectory = `${process.env.PUBLIC_URL}/svgs/`;
 
     const imageRef = useRef<HTMLDivElement>(null);
@@ -48,6 +60,9 @@ export const Preview: FC = () => {
                     width: 'fit-content',
                     background: 'rgba(0, 0, 0, 0)',
                     margin: 0,
+                    lineHeight: '0',
+                    border: `${boxBorderSize}px solid ${boxBorderColor}`,
+                    borderRadius: `${boxBorderRadius}px`,
                 }}
             >
                 {svgs &&
@@ -56,7 +71,9 @@ export const Preview: FC = () => {
                             src={`${svgDirectory}${fileName}.svg`}
                             width={svgSize}
                             height={svgSize}
-                            style={{ padding: `${svgSpacingY} ${svgSpacingX}` }}
+                            style={{
+                                padding: `${svgSpacingY} ${svgSpacingX}`,
+                            }}
                             title={fileName}
                             key={index}
                         />
