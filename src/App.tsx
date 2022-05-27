@@ -1,4 +1,4 @@
-import { Container, Stack } from '@mui/material';
+import { Container, Stack, Typography } from '@mui/material';
 import { atom } from 'recoil';
 import './App.css';
 import { FormSection } from './components/FormSection';
@@ -60,9 +60,11 @@ function App() {
     return (
         <div className="App">
             <Container maxWidth="md">
+                <Typography variant="h5" component="div" mb={3}>
+                    Edit Form
+                </Typography>
                 <Stack spacing={5}>
                     <FormSection />
-                    <hr />
                     <Preview />
                 </Stack>
             </Container>

@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, Paper, Typography } from '@mui/material';
 import { FC, useRef, useCallback } from 'react';
 import SVG from 'react-inlinesvg';
 import { useRecoilValue } from 'recoil';
@@ -43,42 +43,52 @@ export const Preview: FC = () => {
     }, [imageRef]);
 
     return (
-        <>
-            <Typography variant="h5" component="div" gutterBottom>
-                Preview
-            </Typography>
-            <Button
-                style={{ marginBottom: '3em' }}
-                variant="outlined"
-                onClick={() => downloadPng()}
-            >
-                Download Svg
-            </Button>
+        <Box>
+            {/* Preview Header */}
             <Box
-                ref={imageRef}
-                style={{
-                    width: 'fit-content',
-                    background: 'rgba(0, 0, 0, 0)',
-                    margin: 0,
-                    lineHeight: '0',
-                    border: `${boxBorderSize}px solid ${boxBorderColor}`,
-                    borderRadius: `${boxBorderRadius}px`,
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
                 }}
+                mb={3}
             >
-                {svgs &&
-                    svgs.map((fileName: string, index: number) => (
-                        <SVG
-                            src={`${svgDirectory}${fileName}.svg`}
-                            width={svgSize}
-                            height={svgSize}
-                            style={{
-                                padding: `${svgSpacingY} ${svgSpacingX}`,
-                            }}
-                            title={fileName}
-                            key={index}
-                        />
-                    ))}
+                <Typography variant="h5" component="div">
+                    Preview
+                </Typography>
+                <Button variant="outlined" onClick={() => downloadPng()}>
+                    Download Svg
+                </Button>
             </Box>
-        </>
+
+            {/* Preview Image */}
+            <Paper sx={{ p: 5 }} elevation={3}>
+                <Box
+                    ref={imageRef}
+                    style={{
+                        width: 'fit-content',
+                        background: 'rgba(0, 0, 0, 0)',
+                        margin: 0,
+                        lineHeight: '0',
+                        border: `${boxBorderSize}px solid ${boxBorderColor}`,
+                        borderRadius: `${boxBorderRadius}px`,
+                    }}
+                >
+                    {svgs &&
+                        svgs.map((fileName: string, index: number) => (
+                            <SVG
+                                src={`${svgDirectory}${fileName}.svg`}
+                                width={svgSize}
+                                height={svgSize}
+                                style={{
+                                    padding: `${svgSpacingY} ${svgSpacingX}`,
+                                }}
+                                title={fileName}
+                                key={index}
+                            />
+                        ))}
+                </Box>
+            </Paper>
+        </Box>
     );
 };

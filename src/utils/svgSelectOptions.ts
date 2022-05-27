@@ -1,4 +1,4 @@
-export default [
+const svgSelectOptions = [
     { label: 'Angular', file: 'angular' },
     { label: 'Astro', file: 'astro' },
     { label: 'Bootstrap', file: 'bootstrap' },
@@ -19,3 +19,5 @@ export default [
     { label: 'Typescript', file: 'typescript' },
     { label: 'Vue', file: 'vue' },
 ];
+
+export default svgSelectOptions;
