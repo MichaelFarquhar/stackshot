@@ -1,7 +1,7 @@
-import { Container, Stack, Typography } from '@mui/material';
+import { Container, Stack } from '@mui/material';
 import { atom } from 'recoil';
 import './global.css';
-import { FormSection } from './components/FormSection';
+import { Form } from './components/Form';
 import { Header } from './components/Header';
 import { Preview } from './components/Preview';
 
@@ -62,11 +62,10 @@ function App() {
         <div className="app">
             <Container maxWidth="md">
                 <Header />
-                <Typography variant="h5" component="div" mb={3}>
-                    Edit Form
-                </Typography>
+
+                {/* Page Content */}
                 <Stack spacing={5}>
-                    <FormSection />
+                    <Form />
                     <Preview />
                 </Stack>
             </Container>

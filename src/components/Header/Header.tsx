@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { AppBar, Box, IconButton, Toolbar, Link } from '@mui/material';
+import { AppBar, Box, Toolbar, Link } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import { PageContainer } from '../PageContainer';
 import { HeaderLogo } from './HeaderLogo';
