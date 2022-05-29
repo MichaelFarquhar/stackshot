@@ -12,6 +12,7 @@ import {
     svgState,
 } from '../../App';
 import { toPng, toSvg } from 'html-to-image';
+import { PageContainer } from '../PageContainer';
 
 export const Preview: FC = () => {
     const [fileError, setFileError] = useState('');
@@ -101,69 +102,71 @@ export const Preview: FC = () => {
 
     return (
         <Box>
-            {/* Preview Header */}
-            <Box
-                sx={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                }}
-                mb={3}
-            >
-                <Typography variant="h5" component="div">
-                    Preview
-                </Typography>
-                <Box>
-                    <Button
-                        variant="outlined"
-                        onClick={() => downloadAsFile(ImageType.PNG)}
-                        sx={{ mr: 2 }}
-                    >
-                        Download As Png
-                    </Button>
-                    <Button
-                        variant="outlined"
-                        onClick={() => downloadAsFile(ImageType.SVG)}
-                    >
-                        Download As Svg
-                    </Button>
-                </Box>
-            </Box>
-
-            {fileError && (
-                <Alert severity="error" sx={{ mb: 3 }}>
-                    {fileError}
-                </Alert>
-            )}
-
-            {/* Preview Image */}
-            <Paper sx={{ p: 5 }} elevation={3}>
+            <PageContainer>
+                {/* Preview Header */}
                 <Box
-                    ref={imageRef}
-                    style={{
-                        width: 'fit-content',
-                        background: 'rgba(0, 0, 0, 0)',
-                        margin: 0,
-                        lineHeight: '0',
-                        border: `${boxBorderSize}px solid ${boxBorderColor}`,
-                        borderRadius: `${boxBorderRadius}px`,
+                    sx={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
                     }}
+                    mb={3}
                 >
-                    {svgList &&
-                        svgList.map((fileName: string, index: number) => (
-                            <SVG
-                                src={`${svgDirectory}${fileName}.svg`}
-                                width={svgSize}
-                                height={svgSize}
-                                style={{
-                                    padding: `${svgSpacingY} ${svgSpacingX}`,
-                                }}
-                                title={fileName}
-                                key={index}
-                            />
-                        ))}
+                    <Typography variant="h5" component="div">
+                        Preview
+                    </Typography>
+                    <Box>
+                        <Button
+                            variant="outlined"
+                            onClick={() => downloadAsFile(ImageType.PNG)}
+                            sx={{ mr: 2 }}
+                        >
+                            Download As Png
+                        </Button>
+                        <Button
+                            variant="outlined"
+                            onClick={() => downloadAsFile(ImageType.SVG)}
+                        >
+                            Download As Svg
+                        </Button>
+                    </Box>
                 </Box>
-            </Paper>
+
+                {fileError && (
+                    <Alert severity="error" sx={{ mb: 3 }}>
+                        {fileError}
+                    </Alert>
+                )}
+
+                {/* Preview Image */}
+                <Paper sx={{ p: 5 }} elevation={3}>
+                    <Box
+                        ref={imageRef}
+                        style={{
+                            width: 'fit-content',
+                            background: 'rgba(0, 0, 0, 0)',
+                            margin: 0,
+                            lineHeight: '0',
+                            border: `${boxBorderSize}px solid ${boxBorderColor}`,
+                            borderRadius: `${boxBorderRadius}px`,
+                        }}
+                    >
+                        {svgList &&
+                            svgList.map((fileName: string, index: number) => (
+                                <SVG
+                                    src={`${svgDirectory}${fileName}.svg`}
+                                    width={svgSize}
+                                    height={svgSize}
+                                    style={{
+                                        padding: `${svgSpacingY} ${svgSpacingX}`,
+                                    }}
+                                    title={fileName}
+                                    key={index}
+                                />
+                            ))}
+                    </Box>
+                </Paper>
+            </PageContainer>
         </Box>
     );
 };

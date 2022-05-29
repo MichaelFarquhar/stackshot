@@ -1,4 +1,4 @@
-import { Container, Stack } from '@mui/material';
+import { Stack } from '@mui/material';
 import { atom } from 'recoil';
 import './global.css';
 import { Form } from './components/Form';
@@ -60,15 +60,13 @@ export const svgSizeState = atom<number>({
 function App() {
     return (
         <div className="app">
-            <Container maxWidth="md">
-                <Header />
+            <Header />
 
-                {/* Page Content */}
-                <Stack spacing={5}>
-                    <Form />
-                    <Preview />
-                </Stack>
-            </Container>
+            {/* Page Content */}
+            <Stack spacing={5}>
+                <Form />
+                <Preview />
+            </Stack>
         </div>
     );
 }

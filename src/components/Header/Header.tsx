@@ -6,20 +6,18 @@ import { HeaderLogo } from './HeaderLogo';
 
 export const Header: FC = () => {
     return (
-        <Box sx={{ flexGrow: 1 }}>
-            <AppBar>
+        <Box sx={{ flexGrow: 1, mb: 5 }}>
+            <AppBar position="relative">
                 <PageContainer>
                     <Toolbar disableGutters>
                         <HeaderLogo />
-                        <div>
-                            <Link
-                                href="https://github.com/MichaelFarquhar/stackshot"
-                                target="_blank"
-                                color="inherit"
-                            >
-                                <GitHubIcon fontSize="large" color="inherit" />
-                            </Link>
-                        </div>
+                        <Link
+                            href="https://github.com/MichaelFarquhar/stackshot"
+                            target="_blank"
+                            color="inherit"
+                        >
+                            <GitHubIcon fontSize="large" color="inherit" />
+                        </Link>
                     </Toolbar>
                 </PageContainer>
             </AppBar>
