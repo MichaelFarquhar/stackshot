@@ -1,7 +1,8 @@
 import { Container, Stack, Typography } from '@mui/material';
 import { atom } from 'recoil';
-import './App.css';
+import './global.css';
 import { FormSection } from './components/FormSection';
+import { Header } from './components/Header';
 import { Preview } from './components/Preview';
 
 // Side effect for logging out any state value on change
@@ -58,8 +59,9 @@ export const svgSizeState = atom<number>({
 
 function App() {
     return (
-        <div className="App">
+        <div className="app">
             <Container maxWidth="md">
+                <Header />
                 <Typography variant="h5" component="div" mb={3}>
                     Edit Form
                 </Typography>
