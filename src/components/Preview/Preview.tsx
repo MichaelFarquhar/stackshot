@@ -1,5 +1,5 @@
-import { Box, Button, Paper, Typography } from '@mui/material';
-import { FC, useRef, useCallback } from 'react';
+import { Box, Button, Paper, Typography, Alert } from '@mui/material';
+import { FC, useState, useRef, useCallback } from 'react';
 import SVG from 'react-inlinesvg';
 import { useRecoilValue } from 'recoil';
 import {
@@ -11,10 +11,12 @@ import {
     svgSpacingYState,
     svgState,
 } from '../../App';
-import { toSvg } from 'html-to-image';
+import { toPng, toSvg } from 'html-to-image';
 
 export const Preview: FC = () => {
-    const svgs = useRecoilValue(svgState);
+    const [fileError, setFileError] = useState('');
+
+    const svgList = useRecoilValue(svgState);
     const svgSize = useRecoilValue(svgSizeState);
     const svgSpacingX = useRecoilValue(svgSpacingXState);
     const svgSpacingY = useRecoilValue(svgSpacingYState);
@@ -26,8 +28,38 @@ export const Preview: FC = () => {
 
     const imageRef = useRef<HTMLDivElement>(null);
 
+    // Download ref as png
     const downloadPng = useCallback(() => {
         if (imageRef.current === null) {
+            setFileError('No stacks were added.');
+            return;
+        }
+        if (imageRef.current.childElementCount === 0) {
+            setFileError('No stacks were added.');
+            return;
+        }
+        toPng(imageRef?.current)
+            .then((dataUrl) => {
+                var img = new Image();
+                img.src = dataUrl;
+
+                var link = document.createElement('a');
+                link.download = 'stackshot.png';
+                link.href = dataUrl;
+                link.click();
+            })
+            .catch((err) => {
+                setFileError(err);
+            });
+    }, [imageRef]);
+
+    // Download ref as svg
+    const downloadSvg = useCallback(() => {
+        if (imageRef.current === null) {
+            return;
+        }
+        if (imageRef.current.childElementCount === 0) {
+            setFileError('No stacks were added.');
             return;
         }
         toSvg(imageRef?.current, { cacheBust: true })
@@ -38,9 +70,34 @@ export const Preview: FC = () => {
                 link.click();
             })
             .catch((err) => {
-                console.log(err);
+                setFileError(err);
             });
     }, [imageRef]);
+
+    enum ImageType {
+        SVG,
+        PNG,
+    }
+
+    const downloadAsFile = useCallback(
+        (type: ImageType) => {
+            if (imageRef.current === null) {
+                setFileError('No stacks were added.');
+                return;
+            }
+            if (imageRef.current.childElementCount === 0) {
+                setFileError('No stacks were added.');
+                return;
+            }
+
+            if (type === ImageType.PNG) {
+                downloadPng();
+            } else if (type === ImageType.SVG) {
+                downloadSvg();
+            }
+        },
+        [imageRef, ImageType, downloadPng, downloadSvg]
+    );
 
     return (
         <Box>
@@ -56,10 +113,28 @@ export const Preview: FC = () => {
                 <Typography variant="h5" component="div">
                     Preview
                 </Typography>
-                <Button variant="outlined" onClick={() => downloadPng()}>
-                    Download Svg
-                </Button>
+                <Box>
+                    <Button
+                        variant="outlined"
+                        onClick={() => downloadAsFile(ImageType.PNG)}
+                        sx={{ mr: 2 }}
+                    >
+                        Download As Png
+                    </Button>
+                    <Button
+                        variant="outlined"
+                        onClick={() => downloadAsFile(ImageType.SVG)}
+                    >
+                        Download As Svg
+                    </Button>
+                </Box>
             </Box>
+
+            {fileError && (
+                <Alert severity="error" sx={{ mb: 3 }}>
+                    {fileError}
+                </Alert>
+            )}
 
             {/* Preview Image */}
             <Paper sx={{ p: 5 }} elevation={3}>
@@ -74,8 +149,8 @@ export const Preview: FC = () => {
                         borderRadius: `${boxBorderRadius}px`,
                     }}
                 >
-                    {svgs &&
-                        svgs.map((fileName: string, index: number) => (
+                    {svgList &&
+                        svgList.map((fileName: string, index: number) => (
                             <SVG
                                 src={`${svgDirectory}${fileName}.svg`}
                                 width={svgSize}

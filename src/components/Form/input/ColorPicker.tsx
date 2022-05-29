@@ -33,7 +33,7 @@ export const ColorPicker: FC<Props> = ({ color, onChangeColor }) => {
                 onClick={() => setPopoverOpen((open) => !open)}
                 ref={popoverBtnRef}
             >
-                Choose Color
+                Change Color
             </Button>
             <Popover
                 open={popoverOpen}
