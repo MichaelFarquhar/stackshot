@@ -1,11 +1,20 @@
-import { Box, Button, Paper, Typography, Alert } from '@mui/material';
+import {
+    Box,
+    Button,
+    Paper,
+    Typography,
+    Alert,
+    Switch,
+    FormControlLabel,
+} from '@mui/material';
 import { FC, useState, useRef, useCallback } from 'react';
 import SVG from 'react-inlinesvg';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import {
     borderColorState,
     borderRadiusState,
     borderSizeState,
+    previewBorderState,
     svgSizeState,
     svgSpacingXState,
     svgSpacingYState,
@@ -24,6 +33,7 @@ export const Preview: FC = () => {
     const boxBorderColor = useRecoilValue(borderColorState);
     const boxBorderSize = useRecoilValue(borderSizeState);
     const boxBorderRadius = useRecoilValue(borderRadiusState);
+    const [borderPreview, setBorderPreview] = useRecoilState(previewBorderState);
 
     const svgDirectory = `${process.env.PUBLIC_URL}/svgs/`;
 
@@ -138,6 +148,20 @@ export const Preview: FC = () => {
                     </Alert>
                 )}
 
+                {/* Switch to show preview borders */}
+                <FormControlLabel
+                    label="Preview Borders"
+                    control={
+                        <Switch
+                            checked={borderPreview}
+                            inputProps={{ 'aria-label': 'Preview Borders' }}
+                            onChange={() => setBorderPreview((preview) => !preview)}
+                            disabled={boxBorderSize > 0}
+                        />
+                    }
+                    sx={{ mb: 1 }}
+                />
+
                 {/* Preview Image */}
                 <Paper sx={{ p: 5 }} elevation={3}>
                     <Box
@@ -147,7 +171,9 @@ export const Preview: FC = () => {
                             background: 'rgba(0, 0, 0, 0)',
                             margin: 0,
                             lineHeight: '0',
-                            border: `${boxBorderSize}px solid ${boxBorderColor}`,
+                            border: boxBorderSize
+                                ? `${boxBorderSize}px solid ${boxBorderColor}`
+                                : `${borderPreview ? '1' : '0'}px solid #ffc353`,
                             borderRadius: `${boxBorderRadius}px`,
                         }}
                     >

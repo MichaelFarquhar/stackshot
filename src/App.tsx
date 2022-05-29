@@ -57,6 +57,12 @@ export const svgSizeState = atom<number>({
     default: 50,
 });
 
+// Width and height of svgs
+export const previewBorderState = atom<boolean>({
+    key: 'previewBorderState',
+    default: false,
+});
+
 function App() {
     return (
         <div className="app">
