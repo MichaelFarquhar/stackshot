@@ -17,6 +17,7 @@ const svgSelectOptions = [
     { label: 'Material UI', file: 'mui' },
     { label: 'Mongo DB', file: 'mongodb' },
     { label: 'MySQL', file: 'mysql' },
+    { label: 'Netlify', file: 'netlify' },
     { label: 'Node JS', file: 'nodejs' },
     { label: 'Nuxt', file: 'nuxt' },
     { label: 'PHP', file: 'php' },
