@@ -1,4 +1,5 @@
 # Stackshot
+![stack](https://i.imgur.com/QpvdQJe.png)
 
 Stackshot is an app that allows you to select from a list of software stacks and create a custom an image to download and display on your Github README.
 
