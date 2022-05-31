@@ -34,7 +34,7 @@ export const FormSection: FC = () => {
             <Box>
                 <FormSectionLabel label="SVG Options" />
                 <Grid container spacing={3}>
-                    <Grid item xs={4}>
+                    <Grid item md={4} xs={6}>
                         <TextField
                             name="spacingX"
                             variant="standard"
@@ -48,7 +48,7 @@ export const FormSection: FC = () => {
                             }
                         />
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item md={4} xs={6}>
                         <TextField
                             name="spacingY"
                             variant="standard"
@@ -62,7 +62,7 @@ export const FormSection: FC = () => {
                             }
                         />
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item md={4} xs={12}>
                         <TextField
                             name="svgSize"
                             variant="standard"
@@ -81,10 +81,10 @@ export const FormSection: FC = () => {
             <Box>
                 <FormSectionLabel label="Border Options" />
                 <Grid container spacing={3}>
-                    <Grid item xs={4}>
+                    <Grid item md={4} xs={12}>
                         <ColorPicker color={borderColor} onChangeColor={setBorderColor} />
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item md={4} xs={6}>
                         <TextField
                             name="borderSize"
                             variant="standard"
@@ -98,7 +98,7 @@ export const FormSection: FC = () => {
                             }
                         />
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item md={4} xs={6}>
                         <TextField
                             name="borderRadius"
                             variant="standard"

@@ -42,15 +42,15 @@ export const Preview: FC = () => {
     // Download ref as png
     const downloadPng = useCallback(() => {
         if (imageRef.current === null) {
-            setFileError('No stacks were added.');
             return;
         }
         if (imageRef.current.childElementCount === 0) {
-            setFileError('No stacks were added.');
+            setFileError('There are currently no stacks added.');
             return;
         }
         toPng(imageRef?.current)
             .then((dataUrl) => {
+                setFileError('');
                 var img = new Image();
                 img.src = dataUrl;
 
@@ -70,11 +70,12 @@ export const Preview: FC = () => {
             return;
         }
         if (imageRef.current.childElementCount === 0) {
-            setFileError('No stacks were added.');
+            setFileError('There are currently no stacks added.');
             return;
         }
         toSvg(imageRef?.current, { cacheBust: true })
             .then((dataUrl) => {
+                setFileError('');
                 var link = document.createElement('a');
                 link.download = 'stackshot.svg';
                 link.href = dataUrl;
@@ -85,31 +86,6 @@ export const Preview: FC = () => {
             });
     }, [imageRef]);
 
-    enum ImageType {
-        SVG,
-        PNG,
-    }
-
-    const downloadAsFile = useCallback(
-        (type: ImageType) => {
-            if (imageRef.current === null) {
-                setFileError('No stacks were added.');
-                return;
-            }
-            if (imageRef.current.childElementCount === 0) {
-                setFileError('No stacks were added.');
-                return;
-            }
-
-            if (type === ImageType.PNG) {
-                downloadPng();
-            } else if (type === ImageType.SVG) {
-                downloadSvg();
-            }
-        },
-        [imageRef, ImageType, downloadPng, downloadSvg]
-    );
-
     return (
         <Box>
             <PageContainer>
@@ -118,25 +94,45 @@ export const Preview: FC = () => {
                     sx={{
                         display: 'flex',
                         justifyContent: 'space-between',
-                        alignItems: 'center',
+                        alignItems: {
+                            xs: 'flex-start',
+                            sm: 'center',
+                        },
+                        flexDirection: {
+                            xs: 'column',
+                            sm: 'row',
+                        },
+                        rowGap: {
+                            xs: '0.75em',
+                            sm: '0em',
+                        },
                     }}
                     mb={3}
                 >
                     <Typography variant="h5" component="div">
                         Preview
                     </Typography>
-                    <Box>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            flexDirection: {
+                                xs: 'column',
+                                sm: 'row',
+                            },
+                            rowGap: {
+                                xs: '0.75em',
+                                sm: '0em',
+                            },
+                        }}
+                    >
                         <Button
                             variant="outlined"
-                            onClick={() => downloadAsFile(ImageType.PNG)}
+                            onClick={() => downloadPng()}
                             sx={{ mr: 2 }}
                         >
                             Download As Png
                         </Button>
-                        <Button
-                            variant="outlined"
-                            onClick={() => downloadAsFile(ImageType.SVG)}
-                        >
+                        <Button variant="outlined" onClick={() => downloadSvg()}>
                             Download As Svg
                         </Button>
                     </Box>
@@ -163,7 +159,7 @@ export const Preview: FC = () => {
                 />
 
                 {/* Preview Image */}
-                <Paper sx={{ p: 5 }} elevation={3}>
+                <Paper sx={{ p: 5, mb: 3 }} elevation={3}>
                     <Box
                         ref={imageRef}
                         style={{
